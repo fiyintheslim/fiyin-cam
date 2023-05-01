@@ -31,8 +31,7 @@ class Video {
           this.recorder.start();
           this.recorder.ondataavailable = (e) =>
             handleRecorderData(e, this.chunk);
-          this.recorder.onstop = () =>
-            handleRecorderStop(this.chunk, this.recorder);
+          this.recorder.onstop = () => handleRecorderStop(this.chunk);
         }
       });
     return this;
@@ -65,7 +64,7 @@ function handleRecorderData(e: BlobEvent, chunk: Blob[]) {
   return;
 }
 
-function handleRecorderStop(chunk: Blob[], recorder?: MediaRecorder) {
+function handleRecorderStop(chunk: Blob[]) {
   const blob = new Blob(chunk, { type: "video/mp4" });
 
   const downloadBTN = document.createElement("a");

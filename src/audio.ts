@@ -1,12 +1,6 @@
 class Audio {
-  private stream?: MediaStream;
-
   startAudio() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: false })
-      .then((stream) => {
-        this.stream = stream;
-      });
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false });
   }
 }
 
