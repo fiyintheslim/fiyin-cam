@@ -27,7 +27,7 @@ class Video {
           this.videoElement.srcObject = this.stream;
           this.recording = true;
           //start recording video
-          this.recorder = new MediaRecorder(stream);
+          this.recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
           this.recorder.start();
           this.recorder.ondataavailable = (e) =>
             handleRecorderData(e, this.chunk);
@@ -65,7 +65,7 @@ function handleRecorderData(e: BlobEvent, chunk: Blob[]) {
 }
 
 function handleRecorderStop(chunk: Blob[]) {
-  const blob = new Blob(chunk, { type: "video/mp4" });
+  const blob = new Blob(chunk, { type: "video/webm" });
 
   const downloadBTN = document.createElement("a");
   const recordedURL = URL.createObjectURL(blob);
@@ -79,7 +79,7 @@ function handleRecorderStop(chunk: Blob[]) {
 
   console.log(recordedURL, blob);
   downloadBTN.href = recordedURL;
-  downloadBTN.download = "video-recording.mp4";
+  downloadBTN.download = "video-recording.webm ";
   downloadBTN.classList.add("download");
   downloadBTN.innerText = "Download";
 
@@ -89,3 +89,13 @@ function handleRecorderStop(chunk: Blob[]) {
     this.parentElement?.removeChild(this);
   });
 }
+
+// function supportedMimeType () {
+// 	const mimeTypes = [
+//     "video/webm;codecs=vp9,opus",
+//     "video/webm;codecs=vp8,opus",
+//     "video/webm",
+//   ];
+
+// 	console.log(MediaRecorder.su)
+// }

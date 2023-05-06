@@ -1,8 +1,10 @@
 import "./style.css";
 import { videoController } from "./video";
+import { audioController } from "./audio";
 
 window.addEventListener("DOMContentLoaded", () => {
   const video = document.querySelector("video")!;
+  const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
   const videoControls = document.querySelector(".video_controller")!;
   const audioControls = document.querySelector(".audio_controller")!;
   const startVid = document.querySelector("#start_video")!;
@@ -27,9 +29,15 @@ window.addEventListener("DOMContentLoaded", () => {
 
   startAudio.addEventListener("click", () => {
     videoControls.setAttribute("style", "display: none");
+    startAudio.setAttribute("style", "display:none");
+    audioController.startAudio().registerCanvas(canvas).animate();
+    canvas.setAttribute("style", "display: block");
   });
 
   stopAudio?.addEventListener("click", () => {
     videoControls.setAttribute("style", "display: flex");
+    startAudio.setAttribute("style", "display:inline-block");
+    audioController.stopAudio();
+    canvas.setAttribute("style", "display: none");
   });
 });
